@@ -1,0 +1,26 @@
+
+/target/
+*.iml
+
+# Eclipse files
+.classpath
+.project
+.settings/
+# IntelliJ IDEA files
+*.ipr
+*.iws
+*.idea/
+# NetBeans files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+# VS Code files
+.vscode/
+# Maven files
+.mvn/
+# Gradle files
+.gradle/
+build/
