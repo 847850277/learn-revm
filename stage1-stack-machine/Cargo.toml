@@ -1,0 +1,21 @@
+[package]
+name = "stage1-stack-machine"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+description = "Stage 1: Basic EVM Stack Machine Implementation"
+
+# 声明二进制目标
+[[bin]]
+name = "practice1_stack_basics"
+path = "src/practice1_stack_basics.rs"
+
+[[bin]]
+name = "practice2_memory_ops"
+path = "src/practice2_memory_ops.rs"
+
+[[bin]]
+name = "practice3_jump_safety"
+path = "src/practice3_jump_safety.rs"
+
+[dependencies]
