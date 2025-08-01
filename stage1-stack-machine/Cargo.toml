@@ -18,4 +18,8 @@ path = "src/practice2_memory_ops.rs"
 name = "practice3_jump_safety"
 path = "src/practice3_jump_safety.rs"
 
+[[bin]]
+name = "practice4_gas_calculation"
+path = "src/practice4_gas_calculation.rs"
+
 [dependencies]
