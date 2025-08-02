@@ -11,6 +11,10 @@ name = "practice1_stack_basics"
 path = "src/practice1_stack_basics.rs"
 
 [[bin]]
+name = "practice1_stack_basics_copy"
+path = "src/practice1_stack_basics_copy.rs"
+
+[[bin]]
 name = "practice2_memory_ops"
 path = "src/practice2_memory_ops.rs"
 
