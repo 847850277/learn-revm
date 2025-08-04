@@ -10,9 +10,6 @@ description = "Stage 1: Basic EVM Stack Machine Implementation"
 name = "practice1_stack_basics"
 path = "src/practice1_stack_basics.rs"
 
-[[bin]]
-name = "practice1_stack_basics_copy"
-path = "src/practice1_stack_basics_copy.rs"
 
 [[bin]]
 name = "practice2_memory_ops"
@@ -25,5 +22,9 @@ path = "src/practice3_jump_safety.rs"
 [[bin]]
 name = "practice4_gas_calculation"
 path = "src/practice4_gas_calculation.rs"
+
+[[bin]]
+name = "practice5_complete_sequence"
+path = "src/practice5_complete_sequence.rs"
 
 [dependencies]

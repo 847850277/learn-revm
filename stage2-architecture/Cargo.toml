@@ -1,0 +1,26 @@
+[package]
+name = "stage2-architecture"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ethereum-types = "0.14"
+keccak-hash = "0.10"
+primitive-types = { version = "0.12", features = ["serde"] }
+hex = "0.4"
+
+[[bin]]
+name = "practice1_spec_system"
+path = "src/bin/practice1_spec_system.rs"
+
+[[bin]]
+name = "practice2_modular_evm"
+path = "src/bin/practice2_modular_evm.rs"
+
+[[bin]]
+name = "practice3_call_stack"
+path = "src/bin/practice3_call_stack.rs"
+
+[[bin]]
+name = "practice4_database_layer"
+path = "src/bin/practice4_database_layer.rs"

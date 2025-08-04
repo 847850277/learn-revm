@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "stage1-stack-machine",
+    "stage2-architecture",
 ]
 
 [workspace.package]

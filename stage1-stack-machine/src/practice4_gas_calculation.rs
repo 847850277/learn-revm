@@ -162,12 +162,12 @@ enum Instruction {
     Sub,
 
     // 内存指令
-    MStore,  // 存储到内存
-    MLoad,   // 从内存加载
+    MStore, // 存储到内存
+    MLoad,  // 从内存加载
 
     // 存储指令
-    SLoad,   // 从存储加载
-    SStore,  // 存储到存储
+    SLoad,  // 从存储加载
+    SStore, // 存储到存储
 
     // 控制指令
     Stop,
@@ -362,12 +362,12 @@ fn main() {
     println!("------------------------------");
 
     let instructions = vec![
-        Instruction::Push(10),   // 3 gas
-        Instruction::Push(20),   // 3 gas
-        Instruction::Add,        // 3 gas
-        Instruction::Push(5),    // 3 gas
-        Instruction::Mul,        // 5 gas
-        Instruction::Stop,       // 0 gas
+        Instruction::Push(10), // 3 gas
+        Instruction::Push(20), // 3 gas
+        Instruction::Add,      // 3 gas
+        Instruction::Push(5),  // 3 gas
+        Instruction::Mul,      // 5 gas
+        Instruction::Stop,     // 0 gas
     ];
 
     let mut evm = GasEVM::new(instructions, 1000);
@@ -385,16 +385,14 @@ fn main() {
     println!("------------------------------");
 
     let instructions = vec![
-        Instruction::Push(100),  // 要存储的值
-        Instruction::Push(0),    // 内存偏移 0
-        Instruction::MStore,     // 存储到内存，触发内存扩展
-
-        Instruction::Push(200),  // 要存储的值
-        Instruction::Push(64),   // 内存偏移 64
-        Instruction::MStore,     // 再次扩展内存
-
-        Instruction::Push(0),    // 从偏移 0 加载
-        Instruction::MLoad,      // 加载值
+        Instruction::Push(100), // 要存储的值
+        Instruction::Push(0),   // 内存偏移 0
+        Instruction::MStore,    // 存储到内存，触发内存扩展
+        Instruction::Push(200), // 要存储的值
+        Instruction::Push(64),  // 内存偏移 64
+        Instruction::MStore,    // 再次扩展内存
+        Instruction::Push(0),   // 从偏移 0 加载
+        Instruction::MLoad,     // 加载值
         Instruction::Stop,
     ];
 
@@ -413,17 +411,14 @@ fn main() {
     println!("------------------------------");
 
     let instructions = vec![
-        Instruction::Push(42),   // 要存储的值
-        Instruction::Push(1),    // 存储槽 1
-        Instruction::SStore,     // 第一次存储（从零到非零，20000 gas）
-
-        Instruction::Push(1),    // 存储槽 1
-        Instruction::SLoad,      // 读取存储（200 gas）
-
-        Instruction::Push(100),  // 新值
-        Instruction::Push(1),    // 存储槽 1
-        Instruction::SStore,     // 修改存储（5000 gas）
-
+        Instruction::Push(42),  // 要存储的值
+        Instruction::Push(1),   // 存储槽 1
+        Instruction::SStore,    // 第一次存储（从零到非零，20000 gas）
+        Instruction::Push(1),   // 存储槽 1
+        Instruction::SLoad,     // 读取存储（200 gas）
+        Instruction::Push(100), // 新值
+        Instruction::Push(1),   // 存储槽 1
+        Instruction::SStore,    // 修改存储（5000 gas）
         Instruction::Stop,
     ];
 
@@ -444,7 +439,7 @@ fn main() {
     let instructions = vec![
         Instruction::Push(42),
         Instruction::Push(1),
-        Instruction::SStore,     // 需要 20000+ gas，但我们只给 1000
+        Instruction::SStore, // 需要 20000+ gas，但我们只给 1000
         Instruction::Stop,
     ];
 

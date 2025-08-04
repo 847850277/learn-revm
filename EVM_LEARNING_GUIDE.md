@@ -30,7 +30,7 @@ git checkout 5b026be6
 
 # 分析核心文件
 code src/machine.rs    # 执行引擎
-code src/stack.rs      # 栈实现  
+code src/stack.rs      # 栈实现
 code src/memory.rs     # 内存管理
 code src/opcode/       # 操作码系统
 ```
@@ -153,7 +153,7 @@ code bins/revme/
    // 实现几个核心操作码
    enum OpCode {
        ADD,    // 加法
-       MUL,    // 乘法  
+       MUL,    // 乘法
        PUSH1,  // 推送1字节
        DUP1,   // 复制栈顶
    }
@@ -221,7 +221,7 @@ code bins/revme/
 - [ ] 掌握内存扩展的成本计算
 - [ ] 了解跳转指令的安全机制
 
-### ✅ 进阶掌握检查  
+### ✅ 进阶掌握检查
 - [ ] 能实现自定义的硬分叉规范
 - [ ] 理解预编译合约的实现原理
 - [ ] 掌握调用栈的状态管理

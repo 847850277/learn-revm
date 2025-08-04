@@ -28,7 +28,7 @@ impl SimpleStack {
                 println!("     栈状态: {:?}", self.data);
                 Ok(value)
             }
-            None => Err("Stack underflow")
+            None => Err("Stack underflow"),
         }
     }
 
@@ -44,12 +44,12 @@ impl SimpleStack {
 // 指令类型（扩展了跳转指令）
 #[derive(Debug, Clone)]
 enum Instruction {
-    Push(u64),      // PUSH 指令
-    Add,            // ADD 指令
-    Jump,           // JUMP 指令 - 无条件跳转
-    JumpI,          // JUMPI 指令 - 条件跳转
-    JumpDest,       // JUMPDEST 指令 - 跳转目标标记
-    Stop,           // STOP 指令
+    Push(u64), // PUSH 指令
+    Add,       // ADD 指令
+    Jump,      // JUMP 指令 - 无条件跳转
+    JumpI,     // JUMPI 指令 - 条件跳转
+    JumpDest,  // JUMPDEST 指令 - 跳转目标标记
+    Stop,      // STOP 指令
 }
 
 // 跳转目标验证器
@@ -146,7 +146,10 @@ impl JumpEVM {
 
                 // 验证跳转目标的安全性
                 if !self.jump_validator.is_valid_destination(destination) {
-                    println!("     ❌ 无效跳转目标！目标 PC {} 不是 JUMPDEST", destination);
+                    println!(
+                        "     ❌ 无效跳转目标！目标 PC {} 不是 JUMPDEST",
+                        destination
+                    );
                     return Err("Invalid jump destination");
                 }
 
@@ -173,7 +176,11 @@ impl JumpEVM {
                 let condition = self.stack.pop()?;
 
                 println!("     🎯 跳转目标: PC = {}", destination);
-                println!("     ❓ 跳转条件: {} ({})", condition, if condition != 0 { "真" } else { "假" });
+                println!(
+                    "     ❓ 跳转条件: {} ({})",
+                    condition,
+                    if condition != 0 { "真" } else { "假" }
+                );
 
                 if condition != 0 {
                     // 条件为真，执行跳转
@@ -235,7 +242,10 @@ impl JumpEVM {
         }
 
         if step_count >= MAX_STEPS {
-            println!("\n⚠️ 程序执行步数达到上限 ({})，可能存在无限循环", MAX_STEPS);
+            println!(
+                "\n⚠️ 程序执行步数达到上限 ({})，可能存在无限循环",
+                MAX_STEPS
+            );
         } else {
             println!("\n✅ 程序执行完成!");
         }
@@ -271,14 +281,14 @@ fn main() {
     println!("{}", "-".repeat(30));
 
     let instructions1 = vec![
-        Instruction::Push(5),       // PC=0: PUSH 5
-        Instruction::Jump,          // PC=1: JUMP (跳转到 PC=5)
-        Instruction::Push(99),      // PC=2: PUSH 99 (这条指令会被跳过)
-        Instruction::Add,           // PC=3: ADD (这条指令会被跳过)
-        Instruction::Stop,          // PC=4: STOP (这条指令会被跳过)
-        Instruction::JumpDest,      // PC=5: JUMPDEST (跳转目标)
-        Instruction::Push(42),      // PC=6: PUSH 42
-        Instruction::Stop,          // PC=7: STOP
+        Instruction::Push(5),  // PC=0: PUSH 5
+        Instruction::Jump,     // PC=1: JUMP (跳转到 PC=5)
+        Instruction::Push(99), // PC=2: PUSH 99 (这条指令会被跳过)
+        Instruction::Add,      // PC=3: ADD (这条指令会被跳过)
+        Instruction::Stop,     // PC=4: STOP (这条指令会被跳过)
+        Instruction::JumpDest, // PC=5: JUMPDEST (跳转目标)
+        Instruction::Push(42), // PC=6: PUSH 42
+        Instruction::Stop,     // PC=7: STOP
     ];
 
     let mut evm1 = JumpEVM::new(instructions1);
@@ -293,15 +303,15 @@ fn main() {
     println!("{}", "-".repeat(30));
 
     let instructions2 = vec![
-        Instruction::Push(1),       // PC=0: PUSH 1 (条件为真)
-        Instruction::Push(6),       // PC=1: PUSH 6 (跳转目标)
-        Instruction::JumpI,         // PC=2: JUMPI (条件跳转)
-        Instruction::Push(100),     // PC=3: PUSH 100 (会被跳过)
-        Instruction::Stop,          // PC=4: STOP (会被跳过)
-        Instruction::Push(200),     // PC=5: PUSH 200 (会被跳过)
-        Instruction::JumpDest,      // PC=6: JUMPDEST (跳转目标)
-        Instruction::Push(300),     // PC=7: PUSH 300
-        Instruction::Stop,          // PC=8: STOP
+        Instruction::Push(1),   // PC=0: PUSH 1 (条件为真)
+        Instruction::Push(6),   // PC=1: PUSH 6 (跳转目标)
+        Instruction::JumpI,     // PC=2: JUMPI (条件跳转)
+        Instruction::Push(100), // PC=3: PUSH 100 (会被跳过)
+        Instruction::Stop,      // PC=4: STOP (会被跳过)
+        Instruction::Push(200), // PC=5: PUSH 200 (会被跳过)
+        Instruction::JumpDest,  // PC=6: JUMPDEST (跳转目标)
+        Instruction::Push(300), // PC=7: PUSH 300
+        Instruction::Stop,      // PC=8: STOP
     ];
 
     let mut evm2 = JumpEVM::new(instructions2);
@@ -316,15 +326,15 @@ fn main() {
     println!("{}", "-".repeat(30));
 
     let instructions3 = vec![
-        Instruction::Push(0),       // PC=0: PUSH 0 (条件为假)
-        Instruction::Push(6),       // PC=1: PUSH 6 (跳转目标)
-        Instruction::JumpI,         // PC=2: JUMPI (条件跳转，不会跳转)
-        Instruction::Push(100),     // PC=3: PUSH 100 (会被执行)
-        Instruction::Stop,          // PC=4: STOP
-        Instruction::Push(200),     // PC=5: PUSH 200 (不会被执行)
-        Instruction::JumpDest,      // PC=6: JUMPDEST (跳转目标)
-        Instruction::Push(300),     // PC=7: PUSH 300 (不会被执行)
-        Instruction::Stop,          // PC=8: STOP (不会被执行)
+        Instruction::Push(0),   // PC=0: PUSH 0 (条件为假)
+        Instruction::Push(6),   // PC=1: PUSH 6 (跳转目标)
+        Instruction::JumpI,     // PC=2: JUMPI (条件跳转，不会跳转)
+        Instruction::Push(100), // PC=3: PUSH 100 (会被执行)
+        Instruction::Stop,      // PC=4: STOP
+        Instruction::Push(200), // PC=5: PUSH 200 (不会被执行)
+        Instruction::JumpDest,  // PC=6: JUMPDEST (跳转目标)
+        Instruction::Push(300), // PC=7: PUSH 300 (不会被执行)
+        Instruction::Stop,      // PC=8: STOP (不会被执行)
     ];
 
     let mut evm3 = JumpEVM::new(instructions3);
@@ -339,11 +349,11 @@ fn main() {
     println!("{}", "-".repeat(30));
 
     let instructions4 = vec![
-        Instruction::Push(3),       // PC=0: PUSH 3 (无效跳转目标)
-        Instruction::Jump,          // PC=1: JUMP (尝试跳转到 PC=3)
-        Instruction::Stop,          // PC=2: STOP
-        Instruction::Push(42),      // PC=3: PUSH 42 (不是 JUMPDEST!)
-        Instruction::Stop,          // PC=4: STOP
+        Instruction::Push(3),  // PC=0: PUSH 3 (无效跳转目标)
+        Instruction::Jump,     // PC=1: JUMP (尝试跳转到 PC=3)
+        Instruction::Stop,     // PC=2: STOP
+        Instruction::Push(42), // PC=3: PUSH 42 (不是 JUMPDEST!)
+        Instruction::Stop,     // PC=4: STOP
     ];
 
     let mut evm4 = JumpEVM::new(instructions4);

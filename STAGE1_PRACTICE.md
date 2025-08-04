@@ -19,7 +19,7 @@
 **执行步骤**：
 1. **取指令**: 从 code[0] 获取操作码 0x01 (ADD)
 2. **解码**: 识别为二元算术运算
-3. **取操作数**: 
+3. **取操作数**:
    - pop(): 取得 0x03 (第一个操作数)
    - pop(): 取得 0x05 (第二个操作数)
 4. **执行运算**: 0x05 + 0x03 = 0x08
@@ -54,10 +54,10 @@ fn eval_add(state: &mut Machine) -> Control {
         Ok(value) => U256::from_big_endian(&value[..]),
         Err(e) => return Control::Exit(e.into()),
     };
-    
+
     // 2. 执行溢出安全的加法
     let (ret, _overflow) = op1.overflowing_add(op2);
-    
+
     // 3. 将结果推回栈
     let mut value = H256::default();
     ret.to_big_endian(&mut value[..]);
@@ -65,7 +65,7 @@ fn eval_add(state: &mut Machine) -> Control {
         Ok(()) => (),
         Err(e) => return Control::Exit(e.into()),
     }
-    
+
     // 4. 继续执行下一条指令
     Control::Continue(1)
 }
@@ -111,7 +111,7 @@ EVM 的 JUMP 指令不能随意跳转，只能跳转到 JUMPDEST 标记的位置
 0x00: PUSH1 0x06    // 将跳转目标 6 推入栈
 0x02: JUMP          // 跳转到栈顶指定的位置
 0x03: STOP          // 这条指令会被跳过
-0x04: STOP          // 这条指令会被跳过  
+0x04: STOP          // 这条指令会被跳过
 0x05: STOP          // 这条指令会被跳过
 0x06: JUMPDEST      // 有效的跳转目标
 0x07: STOP          // 跳转后执行这里
@@ -156,7 +156,7 @@ Gas 是 EVM 执行的"燃料"，防止无限循环和资源滥用。
 
 **基础 Gas 成本**：
 - ADD: 3 gas
-- MUL: 5 gas  
+- MUL: 5 gas
 - SLOAD: 200 gas (读取存储)
 - SSTORE: 5000/20000 gas (写入存储)
 
@@ -181,7 +181,7 @@ fn memory_gas(new_size: usize) -> u64 {
 **智能合约字节码**：
 ```
 0x00: PUSH1 0x03    // 将 3 推入栈
-0x02: PUSH1 0x05    // 将 5 推入栈  
+0x02: PUSH1 0x05    // 将 5 推入栈
 0x04: ADD           // 执行加法
 0x05: STOP          // 停止执行
 ```
