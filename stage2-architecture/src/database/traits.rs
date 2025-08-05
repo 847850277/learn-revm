@@ -38,27 +38,6 @@ pub trait DatabaseCommit: Database {
     fn commit(&mut self, changes: Vec<StateChange>) -> Result<(), Self::Error>;
 }
 
-/// 状态变更类型
-#[derive(Debug, Clone)]
-pub enum StateChange {
-    /// 创建新账户
-    CreateAccount { address: Address, info: AccountInfo },
-    /// 删除账户
-    DeleteAccount { address: Address },
-    /// 更新账户余额
-    UpdateBalance { address: Address, balance: U256 },
-    /// 更新账户 nonce
-    UpdateNonce { address: Address, nonce: u64 },
-    /// 设置账户代码
-    SetCode { address: Address, code: Bytecode },
-    /// 更新存储槽
-    UpdateStorage {
-        address: Address,
-        index: U256,
-        value: U256,
-    },
-}
-
 /// 数据库事务支持
 pub trait DatabaseTransaction: Database {
     type Transaction;

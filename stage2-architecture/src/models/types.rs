@@ -3,8 +3,8 @@ use ethereum_types::{Address, H256, U256};
 /// 基础账户信息
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct AccountInfo {
-    pub balance: U256, //账户余额
-    pub nonce: u64,    //版本号
+    pub balance: U256,
+    pub nonce: u64,
     pub code_hash: H256,
     pub code: Option<Vec<u8>>,
 }
@@ -110,6 +110,27 @@ pub struct Log {
     pub address: Address,
     pub topics: Vec<H256>,
     pub data: Vec<u8>,
+}
+
+/// 状态变更类型
+#[derive(Debug, Clone)]
+pub enum StateChange {
+    /// 创建新账户
+    CreateAccount { address: Address, info: AccountInfo },
+    /// 删除账户
+    DeleteAccount { address: Address },
+    /// 更新账户余额
+    UpdateBalance { address: Address, balance: U256 },
+    /// 更新账户 nonce
+    UpdateNonce { address: Address, nonce: u64 },
+    /// 设置账户代码
+    SetCode { address: Address, code: Bytecode },
+    /// 更新存储槽
+    UpdateStorage {
+        address: Address,
+        index: U256,
+        value: U256,
+    },
 }
 
 /// EVM 错误类型
